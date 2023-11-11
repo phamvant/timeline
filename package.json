@@ -9,7 +9,6 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@prisma/cli": "^2.20.1",
     "@prisma/client": "^5.5.2",
     "axios": "^1.6.1",
     "cors": "^2.8.5",
