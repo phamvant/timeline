@@ -5,13 +5,15 @@ import prisma from "@/lib/db";
 const handler = NextAuth({
   session: {
     strategy: "jwt",
+    jwt: true,
   },
   pages: {
     signIn: "/login",
   },
-  secret: process.env.AUTH_SECRET,
+  secret: process.env.NEXTAUTH_SECRET,
   providers: [
     CredentialsProvider({
+      id: "credentials",
       credentials: {
         email: {},
         password: {},
@@ -24,12 +26,15 @@ const handler = NextAuth({
           },
         });
 
-        console.log(process.env.AUTH_SECRET);
+        console.log(response);
 
         const confirm =
           response.password === credentials.password ? true : false;
 
+        console.log(credentials);
+
         if (confirm) {
+          console.log("OK");
           return {
             id: response.id,
             email: response.name,
