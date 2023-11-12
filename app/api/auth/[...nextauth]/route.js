@@ -26,15 +26,10 @@ const handler = NextAuth({
           },
         });
 
-        console.log(response);
-
         const confirm =
           response.password === credentials.password ? true : false;
 
-        console.log(credentials);
-
         if (confirm) {
-          console.log("OK");
           return {
             id: response.id,
             email: response.name,

@@ -4,8 +4,8 @@
     box-sizing: border-box;
     font-family: "Open Sans", sans-serif;
   }
-  
-  .container {
+
+  .container_input_page {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -16,7 +16,7 @@
 }
   
   .wrapper {
-    width: 400px;
+    width: 600px;
     border-radius: 20px;
     padding: 30px;
     text-align: center;

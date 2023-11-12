@@ -1,16 +1,42 @@
 "use client";
 
 import PropTypes from "prop-types";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Element, Link } from "react-scroll";
 import TimelineItem from "../TimelineItem/TimelineItem";
+const { image } = require("@/components/image_dummy.json");
 import "./TimelineStyle.css";
 
-const Timeline = ({ timelineData }) => {
+const Timeline = () => {
+  const initData = {
+    title: "Our Sacred Timeline",
+    subtitle: "For all time, always",
+    items: [{}],
+  };
+
   const [activeIndex, setActiveIndex] = useState(0);
+  const [timelineData, setTimelineData] = useState(initData);
+
+  useEffect(() => {
+    // fetch data
+    const dataFetch = async () => {
+      const response = await (await fetch("/api/query")).json();
+      const { data } = response;
+      setTimelineData((prev) => ({
+        ...prev,
+        items: data,
+      }));
+    };
+
+    dataFetch();
+  }, []);
+
+  useEffect(() => {
+    console.log(activeIndex, timelineData.items);
+  }, [activeIndex]);
 
   const handleSetActive = (to) => {
-    setActiveIndex(Number(to.split("-").pop()) + 1);
+    setActiveIndex(Number(to.split("-").pop()));
   };
 
   return (
@@ -28,6 +54,7 @@ const Timeline = ({ timelineData }) => {
         <div className="timeline">
           {timelineData.items.map((item, index) => (
             <Element
+              style={{ paddingTop: "100px" }}
               key={index}
               name={`timeline-item-${index}`}
               className={`timeline-item timeline-item${
@@ -50,18 +77,4 @@ const Timeline = ({ timelineData }) => {
   );
 };
 
-Timeline.propTypes = {
-  timelineData: PropTypes.shape({
-    title: PropTypes.string.isRequired,
-    subtitle: PropTypes.string.isRequired,
-    items: PropTypes.arrayOf(
-      PropTypes.shape({
-        year: PropTypes.string.isRequired,
-        imageUrl: PropTypes.string.isRequired,
-        title: PropTypes.string.isRequired,
-        description: PropTypes.string.isRequired,
-      })
-    ).isRequired,
-  }).isRequired,
-};
 export default Timeline;

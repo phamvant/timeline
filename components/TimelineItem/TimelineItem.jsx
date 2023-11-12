@@ -4,7 +4,7 @@ import "./TimelineItemStyle.css";
 import { useEffect } from "react";
 
 const TimelineItem = ({ data }) => {
-  const { year, imageUrl, title, description } = data.item;
+  const { imageUrl, title, content } = data.item;
 
   return (
     <div className="timeline__content">
@@ -13,8 +13,8 @@ const TimelineItem = ({ data }) => {
         src={`${imageUrl}?random=${data.index}`}
         alt={title}
       />
-      <h2 className="timeline__content-title">{year}</h2>
-      <p className="timeline__content-desc">{description}</p>
+      <h2 className="timeline__content-title">{title}</h2>
+      <p className="timeline__content-desc">{content}</p>
     </div>
   );
 };

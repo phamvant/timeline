@@ -2,11 +2,14 @@
 
 import React, { useState } from "react";
 import "./InputForm.css";
+import FileUpload from "../file-upload";
+import "@uploadthing/react/styles.css";
 
-const InputForm = () => {
-  const [credentials, setCredentials] = useState({
-    name: "",
-    password: "",
+const InputForm = (session) => {
+  const [data, setData] = useState({
+    url: "",
+    title: "",
+    content: "",
   });
 
   const handleSubmit = async (e) => {
@@ -18,13 +21,14 @@ const InputForm = () => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          imageUrl: "url",
-          title: "Post Title",
-          content: "Post Content",
+          imageUrl: data.url,
+          title: data.title,
+          content: data.content,
         }),
       });
 
       if (response.ok) {
+        console.log("Data created");
       } else {
         console.error("Registration failed");
       }
@@ -35,36 +39,48 @@ const InputForm = () => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setCredentials((prevCredentials) => ({
-      ...prevCredentials,
+    setData((prevData) => ({
+      ...prevData,
       [name]: value,
+    }));
+  };
+
+  const handleChangeUrl = (val) => {
+    console.log(val);
+    setData((prevData) => ({
+      ...prevData,
+      url: val,
     }));
   };
 
   return (
     <form onSubmit={handleSubmit}>
-      <h2>Hold on!</h2>
-      <div className="input-field">
+      <h2>You have something to keep?</h2>
+
+      <FileUpload
+        endpoint={"imageUploader"}
+        value={data.url}
+        onChange={handleChangeUrl}
+      />
+      <div className="input-field" style={{ marginTop: " 50px" }}>
         <input
-          type="text"
-          name="name"
-          value={credentials.user}
+          name="title"
+          value={data.title}
           onChange={handleChange}
           required
         />
-        <label>Your Last Name Only, Darling</label>
+        <label>What so happy?</label>
       </div>
-      <div className="input-field">
-        <input
-          type="password"
-          name="password"
-          value={credentials.password}
+      <div className="input-field" style={{ marginTop: "50px" }}>
+        <textarea
+          name="content"
+          value={data.content}
           onChange={handleChange}
           required
         />
-        <label>Our Secret</label>
+        <label>Some details for this cute moment</label>
       </div>
-      <button type="submit">Get In To Ours Memories</button>
+      <button type="submit">Submit our Memories</button>
     </form>
   );
 };
