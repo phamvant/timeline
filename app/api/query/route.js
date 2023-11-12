@@ -24,6 +24,7 @@ export async function POST(req) {
         content: content,
         date: new Date(),
         authorId: 18,
+
       },
     });
 
