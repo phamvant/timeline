@@ -26,8 +26,6 @@ const handler = NextAuth({
           },
         });
 
-        console.log(response);
-
         const confirm =
           response.password === credentials.password ? true : false;
 
