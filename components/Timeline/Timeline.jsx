@@ -79,6 +79,13 @@ const Timeline = () => {
         <div className="timeline-header">
           <h2 className="timeline-header__title">{timelineData.title}</h2>
           <h3 className="timeline-header__subtitle">{timelineData.subtitle}</h3>
+          <button
+            onClick={() => {
+              window.location.href = "/createMemories";
+            }}
+          >
+            Create some
+          </button>
         </div>
         <div className="timeline">
           {timelineData.items.map((item, index) => (

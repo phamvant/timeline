@@ -58,34 +58,46 @@ const InputForm = (session) => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <h2>You have something to keep?</h2>
+    <div>
+      <div className="wrapper">
+        <form onSubmit={handleSubmit}>
+          <h2>You have something to keep?</h2>
 
-      <FileUpload
-        endpoint={"imageUploader"}
-        value={data.url}
-        onChange={handleChangeUrl}
-      />
-      <div className="input-field" style={{ marginTop: " 50px" }}>
-        <input
-          name="title"
-          value={data.title}
-          onChange={handleChange}
-          required
-        />
-        <label>What so happy?</label>
+          <FileUpload
+            endpoint={"imageUploader"}
+            value={data.url}
+            onChange={handleChangeUrl}
+          />
+          <div className="input-field" style={{ marginTop: " 50px" }}>
+            <input
+              name="title"
+              value={data.title}
+              onChange={handleChange}
+              required
+            />
+            <label>What so happy?</label>
+          </div>
+          <div className="input-field" style={{ marginTop: "50px" }}>
+            <textarea
+              name="content"
+              value={data.content}
+              onChange={handleChange}
+              required
+            />
+            <label>Some details for this cute moment</label>
+          </div>
+          <button type="submit">Submit our Memories</button>
+        </form>
       </div>
-      <div className="input-field" style={{ marginTop: "50px" }}>
-        <textarea
-          name="content"
-          value={data.content}
-          onChange={handleChange}
-          required
-        />
-        <label>Some details for this cute moment</label>
-      </div>
-      <button type="submit">Submit our Memories</button>
-    </form>
+      <button
+        style={{ position: "fixed", bottom: "5%", right: "5%" }}
+        onClick={() => {
+          window.location.assign("/");
+        }}
+      >
+        Back
+      </button>
+    </div>
   );
 };
 

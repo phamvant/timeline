@@ -18,9 +18,7 @@ export default async function uploadPage() {
         backgroundSize: "cover",
       }}
     >
-      <div className="wrapper">
-        <InputForm />
-      </div>
+      <InputForm />
     </div>
   );
 }
