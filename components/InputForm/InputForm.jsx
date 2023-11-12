@@ -1,16 +1,9 @@
 "use client";
 
 import React, { useState } from "react";
-import useRouter from "next/router";
-import axios from "axios";
-import { signIn } from "next-auth/react";
-import "./GlassForm.css";
+import "./InputForm.css";
 
-const GlassForm = () => {
-  const [user, setUser] = useState("");
-  const [password, setPassword] = useState("");
-  const router = useRouter;
-
+const InputForm = () => {
   const [credentials, setCredentials] = useState({
     name: "",
     password: "",
@@ -19,15 +12,19 @@ const GlassForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await signIn("credentials", {
-        email: credentials.name,
-        password: credentials.password,
-        redirect: false,
+      const response = await fetch("/api/query", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          imageUrl: "url",
+          title: "Post Title",
+          content: "Post Content",
+        }),
       });
-      // const response = await axios.post("/api/auth/signin", credentials);
+
       if (response.ok) {
-        // router.push("/"); // Redirect to dashboard or another page on successful registration
-        // router.refresh();
       } else {
         console.error("Registration failed");
       }
@@ -72,4 +69,4 @@ const GlassForm = () => {
   );
 };
 
-export default GlassForm;
+export default InputForm;

@@ -1,7 +1,16 @@
-import GlassForm from "@/components/GlassForm/GlassForm";
+import { getServerSession } from "next-auth";
+import { redirect } from "next/navigation";
+import { SessionProvider } from "next-auth/react";
+import InputForm from "@/components/InputForm/InputForm";
 import "./styles.css";
 
-const uploadPage = () => {
+export default async function uploadPage() {
+  const session = await getServerSession();
+
+  if (!session) {
+    redirect("/");
+  }
+
   return (
     <div
       className="container"
@@ -10,10 +19,8 @@ const uploadPage = () => {
       }}
     >
       <div className="wrapper">
-        <GlassForm />
+        <InputForm />
       </div>
     </div>
   );
-};
-
-export default uploadPage;
+}

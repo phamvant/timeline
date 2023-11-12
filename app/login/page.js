@@ -1,6 +1,6 @@
 import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
-import GlassForm from "@/components/GlassForm/GlassForm";
+import AuthForm from "@/components/AuthForm/AuthForm";
 import "./styles.css";
 
 export default async function uploadPage() {
@@ -16,7 +16,7 @@ export default async function uploadPage() {
       }}
     >
       <div className="wrapper">
-        <GlassForm />
+        <AuthForm />
       </div>
     </div>
   );
