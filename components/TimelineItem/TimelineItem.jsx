@@ -8,11 +8,7 @@ const TimelineItem = ({ data }) => {
 
   return (
     <div className="timeline__content">
-      <img
-        className="timeline__img"
-        src={`${imageUrl}?random=${data.index}`}
-        alt={title}
-      />
+      <img className="timeline__img" src={`${imageUrl}`} alt={title} />
       <h2 className="timeline__content-title">{title}</h2>
       <p className="timeline__content-desc">{content}</p>
     </div>

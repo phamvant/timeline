@@ -1,10 +1,9 @@
 "use client";
 
-import PropTypes from "prop-types";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { Element, Link } from "react-scroll";
 import TimelineItem from "../TimelineItem/TimelineItem";
-const { image } = require("@/components/image_dummy.json");
+import usePageBottom from "@/utils/usePageBottom";
 import "./TimelineStyle.css";
 
 const Timeline = () => {
@@ -17,8 +16,12 @@ const Timeline = () => {
   const [activeIndex, setActiveIndex] = useState(0);
   const [timelineData, setTimelineData] = useState(initData);
 
+  const reached = usePageBottom();
+  if (reached && activeIndex != timelineData.items.length - 1) {
+    setActiveIndex(timelineData.items.length - 1);
+  }
+
   useEffect(() => {
-    // fetch data
     const dataFetch = async () => {
       const response = await (await fetch("/api/query")).json();
       const { data } = response;
@@ -39,8 +42,34 @@ const Timeline = () => {
     setActiveIndex(Number(to.split("-").pop()));
   };
 
+  const listInnerRef = useRef();
+
+  const onScroll = () => {
+    if (listInnerRef.current) {
+      const { scrollTop, scrollHeight, clientHeight } = listInnerRef.current;
+      const isNearBottom = scrollTop + clientHeight >= scrollHeight;
+
+      if (isNearBottom) {
+        console.log("Reached bottom");
+      }
+    }
+  };
+
+  useEffect(() => {
+    const listInnerElement = listInnerRef.current;
+
+    if (listInnerElement) {
+      listInnerElement.addEventListener("scroll", onScroll);
+
+      // Clean-up
+      return () => {
+        listInnerElement.removeEventListener("scroll", onScroll);
+      };
+    }
+  }, []);
+
   return (
-    <>
+    <div className="list-inner" ref={listInnerRef}>
       <div
         className="timeline-container"
         style={{
@@ -73,7 +102,7 @@ const Timeline = () => {
           ))}
         </div>
       </div>
-    </>
+    </div>
   );
 };
 
