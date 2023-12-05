@@ -1,21 +1,30 @@
-import "./globals.css";
-import { Inter } from "next/font/google";
 import { getServerSession } from "next-auth";
-import Link from "next/link";
-import Logout from "./logout";
+import "./globals.css";
 
 import { NextSSRPlugin } from "@uploadthing/react/next-ssr-plugin";
 import { extractRouterConfig } from "uploadthing/server";
 import myFileRouter from "./api/uploadthing/core";
 
-const inter = Inter({ subsets: ["latin"] });
+export const fontSans = FontSans({
+  subsets: ["latin"],
+  variable: "--font-sans",
+});
+
+import { Inter as FontSans } from "next/font/google";
+
+import { cn } from "@/lib/utils";
 
 export default async function RootLayout({ children }) {
   const session = await getServerSession();
 
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body
+        className={cn(
+          "min-h-screen bg-background font-sans antialiased",
+          fontSans.variable
+        )}
+      >
         <NextSSRPlugin routerConfig={extractRouterConfig(myFileRouter)} />
         {/* <nav>
           {!!session && <Logout />}

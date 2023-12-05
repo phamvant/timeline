@@ -21,7 +21,7 @@ const AuthForm = (csrfToken) => {
         redirect: false,
       });
       if (response.ok) {
-        redirect("./");
+        
       } else {
         console.error("Registration failed");
       }

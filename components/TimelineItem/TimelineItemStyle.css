@@ -77,19 +77,21 @@
 
   .timeline__content-title {
     font-weight: normal;
-    font-size: 66px;
     margin: -10px 0 0 0;
     transition: 0.4s;
     padding: 0 10px;
     box-sizing: border-box;
-    font-family: "Pathway Gothic One", sans-serif;
+    font-family: Cardo;
+    text-shadow: 2px 2px gray;
+    /* font-family: "Pathway Gothic One", sans-serif; */
     color: #fff;
   }
+  
   .timeline__content-desc {
     margin: 0;
-    font-size: 15px;
+    font-size: 20px;
     box-sizing: border-box;
-    color: rgba(255, 255, 255, 0.7);
+    color: rgba(255, 255, 255, 1);
     font-family: Cardo;
     font-weight: normal;
     line-height: 25px;

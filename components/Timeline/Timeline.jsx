@@ -1,9 +1,9 @@
 "use client";
 
-import { useEffect, useState, useRef } from "react";
+import usePageBottom from "@/utils/usePageBottom";
+import { useEffect, useRef, useState } from "react";
 import { Element, Link } from "react-scroll";
 import TimelineItem from "../TimelineItem/TimelineItem";
-import usePageBottom from "@/utils/usePageBottom";
 import "./TimelineStyle.css";
 
 const Timeline = () => {
@@ -87,7 +87,7 @@ const Timeline = () => {
             Create some
           </button>
         </div>
-        <div className="timeline">
+        <div className="timeline max-w-5xl lg:max-w-6xl">
           {timelineData.items.map((item, index) => (
             <Element
               style={{ paddingTop: "100px" }}
