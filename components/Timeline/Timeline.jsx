@@ -79,7 +79,11 @@ const Timeline = () => {
       <div
         className="timeline-container"
         style={{
-          backgroundImage: `url("${timelineData.items[activeIndex].imageUrl}")`,
+          backgroundImage: `url("${
+            timelineData.items[activeIndex].imageUrl
+              ? timelineData.items[activeIndex].imageUrl
+              : "/default.jpeg"
+          }")`,
         }}
       >
         <div className="timeline-header">
