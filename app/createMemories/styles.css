@@ -16,7 +16,8 @@
 }
   
   .wrapper {
-    width: 600px;
+    /* width: 600px; */
+    max-width: 600px;
     border-radius: 20px;
     padding: 30px;
     text-align: center;
