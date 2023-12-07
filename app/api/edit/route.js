@@ -23,6 +23,7 @@ export async function POST(req) {
       },
       data: {
         content: data.content,
+        date: data.date,
       },
     });
 

@@ -1,15 +1,22 @@
 "use client";
 
-import React, { useState } from "react";
-import "./InputForm.css";
-import FileUpload from "../file-upload";
+import { cn } from "@/lib/utils";
 import "@uploadthing/react/styles.css";
+import format from "date-fns/format";
+import { CalendarIcon } from "lucide-react";
+import { useState } from "react";
+import FileUpload from "../file-upload";
+import { Button } from "../ui/button";
+import { Calendar } from "../ui/calendar";
+import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
+import "./InputForm.css";
 
 const InputForm = (session) => {
   const [data, setData] = useState({
     url: "",
     title: "",
     content: "",
+    date: new Date(),
   });
 
   const handleSubmit = async (e) => {
@@ -28,6 +35,7 @@ const InputForm = (session) => {
           imageUrl: data.url,
           title: data.title,
           content: data.content,
+          date: format(data.date, "yyyy-MM-dd'T'HH:mm:ss'Z'"),
         }),
       });
 
@@ -86,6 +94,38 @@ const InputForm = (session) => {
             />
             <label>Some details for this cute moment</label>
           </div>
+          <Popover>
+            <PopoverTrigger asChild>
+              <Button
+                variant={"outline"}
+                className={cn(
+                  "w-[240px] justify-start text-left font-normal text-white backdrop-blur-md bg-white/30",
+                  !data.date && "text-muted-foreground"
+                )}
+              >
+                <CalendarIcon className="mr-2 h-4 w-4" />
+                {data.date ? (
+                  format(data.date, "PPP")
+                ) : (
+                  <span className="text-black">Pick a date</span>
+                )}
+              </Button>
+            </PopoverTrigger>
+            <PopoverContent className="w-auto p-0" align="start">
+              <Calendar
+                mode="single"
+                selected={data.date}
+                onSelect={(dateIn) => {
+                  setData((prev) => ({
+                    ...prev,
+                    date: dateIn,
+                  }));
+                }}
+                initialFocus
+                className={"bg-transparent"}
+              />
+            </PopoverContent>
+          </Popover>
           <button type="submit">Submit our Memories</button>
         </form>
       </div>

@@ -1,5 +1,8 @@
 "use client";
 
+import { cn } from "@/lib/utils";
+import format from "date-fns/format";
+
 import {
   AlertDialog,
   AlertDialogAction,
@@ -10,14 +13,21 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
-import { useState } from "react";
-import innerText from "react-innertext";
+import { CalendarIcon } from "lucide-react";
+import { useEffect, useState } from "react";
 import { Button } from "./ui/button";
+import { Calendar } from "./ui/calendar";
+import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover";
 import { Textarea } from "./ui/textarea";
 
-const AlertDialogDemo = ({ children, id }) => {
-  const [content, setContent] = useState(innerText(children));
+const AlertDialogDemo = ({ children, data }) => {
+  const [content, setContent] = useState(data.content);
   const [isSuccess, setIsSuccess] = useState("Edit");
+  const [date, setDate] = useState(undefined);
+
+  useEffect(() => {
+    // console.log(format(date, "MM/dd/yyyy"));
+  }, [date]);
 
   const handleSubmit = async (e) => {
     setIsSuccess("Loading...");
@@ -30,7 +40,8 @@ const AlertDialogDemo = ({ children, id }) => {
         },
         body: JSON.stringify({
           content: content,
-          id: id,
+          id: data.id,
+          date: format(date, "yyyy-MM-dd'T'HH:mm:ss'Z'"),
         }),
       });
 
@@ -57,16 +68,46 @@ const AlertDialogDemo = ({ children, id }) => {
           <AlertDialogTitle className="text-red-400">
             Make our memories more beautiful
           </AlertDialogTitle>
-          <AlertDialogDescription>
-            <Textarea
-              name="content"
-              value={content}
-              onChange={handleChange}
-              className="w-full h-52 backdrop-blur-md bg-white/50"
-              required
-            />
-          </AlertDialogDescription>
         </AlertDialogHeader>
+        <AlertDialogDescription>
+          <Textarea
+            name="content"
+            value={content}
+            onChange={handleChange}
+            className="w-full bg-white/50 h-52 text-slate-900"
+            required
+          />
+          {/* ------------ DATE PICKER ------------ */}
+          <Popover>
+            <PopoverTrigger asChild>
+              <Button
+                variant={"outline"}
+                className={cn(
+                  "w-[240px] justify-start text-left font-normal text-pink-500 backdrop-blur-md bg-white/10",
+                  !date && "text-muted-foreground"
+                )}
+              >
+                <CalendarIcon className="mr-2 h-4 w-4" />
+                {date ? (
+                  format(date, "PPP")
+                ) : (
+                  <span className="text-black">Pick a date</span>
+                )}
+              </Button>
+            </PopoverTrigger>
+            <PopoverContent className="w-auto p-0" align="start">
+              <Calendar
+                mode="single"
+                selected={date}
+                onSelect={setDate}
+                initialFocus
+                className={"bg-transparent"}
+              />
+            </PopoverContent>
+          </Popover>
+          {/* ------------ DATE PICKER ------------ */}
+        </AlertDialogDescription>
+        <AlertDialogContent></AlertDialogContent>
         <AlertDialogFooter>
           <AlertDialogAction className="bg-slate-200 text-slate-700 hover:bg-red-400">
             Cancel
@@ -79,8 +120,8 @@ const AlertDialogDemo = ({ children, id }) => {
                   ? "bg-green-600"
                   : isSuccess === "Loading..."
                   ? "bg-orange-400"
-                  : "bg-pink-500"
-              } hover:bg-slate-400`}
+                  : "bg-red-400"
+              } hover:bg-red-300`}
               variant="other"
             >
               {isSuccess}

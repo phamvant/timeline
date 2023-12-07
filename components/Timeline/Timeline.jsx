@@ -10,7 +10,14 @@ const Timeline = () => {
   const initData = {
     title: "Our Sacred Timeline",
     subtitle: "For all time, always",
-    items: [{}],
+    items: [
+      {
+        id: 0,
+        imageUrl: "/bg.jpg",
+        title: "Loading...",
+        date: "T",
+      },
+    ],
   };
 
   const [activeIndex, setActiveIndex] = useState(0);
@@ -25,18 +32,17 @@ const Timeline = () => {
     const dataFetch = async () => {
       const response = await (await fetch("/api/query")).json();
       const { data } = response;
+      const sortedArray = data.sort(
+        (a, b) => new Date(a.date) - new Date(b.date)
+      );
       setTimelineData((prev) => ({
         ...prev,
-        items: data,
+        items: sortedArray,
       }));
     };
 
     dataFetch();
   }, []);
-
-  useEffect(() => {
-    console.log(activeIndex, timelineData.items);
-  }, [activeIndex]);
 
   const handleSetActive = (to) => {
     setActiveIndex(Number(to.split("-").pop()));

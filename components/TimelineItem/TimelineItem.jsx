@@ -13,7 +13,7 @@ import {
 import "./TimelineItemStyle.css";
 
 const TimelineItem = ({ data }) => {
-  const { imageUrl, title, content, id } = data.item;
+  const { imageUrl, title, content, id, date } = data.item;
 
   return (
     <ContextMenu>
@@ -29,10 +29,11 @@ const TimelineItem = ({ data }) => {
             {title}
           </h2>
 
-          <h2 className="timeline__content-date text-teal-50 mb-5">
-            &#x2022; 13 April 2023
+          <h2 className="timeline__content-date text-teal-50 mb-5 text-lg">
+            &#x2022; {date.split("T")[0]}
+            {/* {date} */}
           </h2>
-          <AlertDialogDemo id={id}>
+          <AlertDialogDemo data={data.item}>
             <p className="timeline__content-desc lg:w-[500px]"> {content}</p>
           </AlertDialogDemo>
         </div>
