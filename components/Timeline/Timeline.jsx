@@ -93,7 +93,7 @@ const Timeline = () => {
             Create some
           </button>
         </div>
-        <div className="timeline max-w-5xl lg:max-w-6xl">
+        <div className="timeline max-w-5xl lg:max-w-7xl">
           {timelineData.items.map((item, index) => (
             <Element
               style={{ paddingTop: "100px" }}
@@ -103,14 +103,37 @@ const Timeline = () => {
                 index === activeIndex ? "--active" : ""
               }`}
             >
-              <Link
-                activeClass="active"
-                onSetActive={handleSetActive}
-                className="link"
-                to={`timeline-item-${index}`}
-                spy={true}
-              ></Link>
-              <TimelineItem key={index} data={{ item, index }} />
+              {index % 2 == 0 ? (
+                <>
+                  {" "}
+                  <Link
+                    activeClass="active"
+                    onSetActive={handleSetActive}
+                    className="link hidden"
+                    to={`timeline-item-${index}`}
+                    spy={true}
+                  ></Link>
+                  <TimelineItem key={index} data={{ item, index }} />
+                  <p className="text-5xl text-white mr-40 hidden lg:block">
+                    &#x2022; {item.date.split("T")[0]}
+                  </p>
+                </>
+              ) : (
+                <>
+                  {" "}
+                  <p className="text-5xl ml-40 text-white hidden lg:block">
+                    &#x2022; {item.date.split("T")[0]}
+                  </p>
+                  <Link
+                    activeClass="active"
+                    onSetActive={handleSetActive}
+                    className="link hidden"
+                    to={`timeline-item-${index}`}
+                    spy={true}
+                  ></Link>
+                  <TimelineItem key={index} data={{ item, index }} />
+                </>
+              )}
             </Element>
           ))}
         </div>

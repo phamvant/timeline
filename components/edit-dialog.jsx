@@ -14,7 +14,7 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import { CalendarIcon } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Button } from "./ui/button";
 import { Calendar } from "./ui/calendar";
 import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover";
@@ -24,10 +24,6 @@ const AlertDialogDemo = ({ children, data }) => {
   const [content, setContent] = useState(data.content);
   const [isSuccess, setIsSuccess] = useState("Edit");
   const [date, setDate] = useState(undefined);
-
-  useEffect(() => {
-    // console.log(format(date, "MM/dd/yyyy"));
-  }, [date]);
 
   const handleSubmit = async (e) => {
     setIsSuccess("Loading...");

@@ -18,7 +18,7 @@ const TimelineItem = ({ data }) => {
   return (
     <ContextMenu>
       <ContextMenuTrigger>
-        <div className="timeline__content">
+        <div className="timeline__content max-w-[600px]">
           <img
             className="timeline__img"
             src={`${imageUrl}`}
@@ -29,7 +29,7 @@ const TimelineItem = ({ data }) => {
             {title}
           </h2>
 
-          <h2 className="timeline__content-date text-teal-50 mb-5 text-lg">
+          <h2 className="timeline__content-date text-teal-50 mb-5 text-lg lg:hidden">
             &#x2022; {date.split("T")[0]}
             {/* {date} */}
           </h2>

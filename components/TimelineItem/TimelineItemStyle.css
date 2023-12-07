@@ -4,10 +4,12 @@
     filter: blur(2px);
     transition: 0.5s;
     box-sizing: border-box;
-    width: calc(50% - 40px);
+    /* width: calc(50% - 40px); */
     display: flex;
     position: relative;
     transform: translateY(-80px);
+    justify-content: space-between;
+    align-items: center;
   }
   
   .timeline-item:before {
@@ -26,7 +28,7 @@
     right: calc(-100% - 56px);
   }
   .timeline-item:nth-child(even) {
-    align-self: flex-end;
+    /* align-self: flex-end; */
   }
   .timeline-item:nth-child(even):before {
     right: auto;
@@ -51,7 +53,7 @@
   .timeline-item--active .timeline__content-title {
     margin: -50px 0 20px 0;
   }
-  @media only screen and (max-width: 767px) {
+  @media only screen and (max-width: 1200px) {
     .timeline-item {
       align-self: baseline !important;
       width: 100%;
