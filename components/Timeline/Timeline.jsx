@@ -83,7 +83,9 @@ const Timeline = () => {
         }}
       >
         <div className="timeline-header">
-          <h2 className="timeline-header__title">{timelineData.title}</h2>
+          <h2 className="timeline-header__title text-6xl">
+            {timelineData.title}
+          </h2>
           <h3 className="timeline-header__subtitle">{timelineData.subtitle}</h3>
           <button
             onClick={() => {
@@ -105,7 +107,10 @@ const Timeline = () => {
             >
               {index % 2 == 0 ? (
                 <>
-                  {" "}
+                  <TimelineItem key={index} data={{ item, index }} />
+                  <p className="text-5xl text-white mr-40 hidden lg:block font-mono">
+                    &#x2022; {item.date.split("T")[0]}
+                  </p>
                   <Link
                     activeClass="active"
                     onSetActive={handleSetActive}
@@ -113,17 +118,13 @@ const Timeline = () => {
                     to={`timeline-item-${index}`}
                     spy={true}
                   ></Link>
-                  <TimelineItem key={index} data={{ item, index }} />
-                  <p className="text-5xl text-white mr-40 hidden lg:block">
-                    &#x2022; {item.date.split("T")[0]}
-                  </p>
                 </>
               ) : (
                 <>
-                  {" "}
-                  <p className="text-5xl ml-40 text-white hidden lg:block">
+                  <p className="text-5xl ml-40 text-white hidden lg:block font-mono">
                     &#x2022; {item.date.split("T")[0]}
                   </p>
+                  <TimelineItem key={index} data={{ item, index }} />
                   <Link
                     activeClass="active"
                     onSetActive={handleSetActive}
@@ -131,7 +132,6 @@ const Timeline = () => {
                     to={`timeline-item-${index}`}
                     spy={true}
                   ></Link>
-                  <TimelineItem key={index} data={{ item, index }} />
                 </>
               )}
             </Element>

@@ -22,10 +22,10 @@ const InputForm = (session) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      if (!data.url) {
-        alert("You forgot to put some image right?");
-        return;
-      }
+      // if (!data.url) {
+      //   alert("You forgot to put some image right?");
+      //   return;
+      // }
       const response = await fetch("/api/query", {
         method: "POST",
         headers: {

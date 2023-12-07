@@ -51,7 +51,7 @@
     opacity: 1;
   }
   .timeline-item--active .timeline__content-title {
-    margin: -50px 0 20px 0;
+    margin: 20px 0 20px 0;
   }
   @media only screen and (max-width: 1200px) {
     .timeline-item {
@@ -78,8 +78,8 @@
   }
 
   .timeline__content-title {
-    font-weight: normal;
-    margin: -10px 0 0 0;
+    /* font-weight: normal; */
+    /* margin: -50px 0 0 0; */
     transition: 0.4s;
     padding: 0 10px;
     box-sizing: border-box;
@@ -91,10 +91,8 @@
   
   .timeline__content-desc {
     margin: 0;
-    font-size: 20px;
     box-sizing: border-box;
     color: rgba(255, 255, 255, 1);
     font-family: Cardo;
     font-weight: normal;
-    line-height: 25px;
   }

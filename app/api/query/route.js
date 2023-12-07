@@ -13,7 +13,7 @@ export async function POST(req) {
     }
 
     const data = await req.json();
-    const { imageUrl, title, content } = data;
+    const { imageUrl, title, content, date } = data;
 
     console.log(data);
 
@@ -22,7 +22,7 @@ export async function POST(req) {
         imageUrl: imageUrl,
         title: title,
         content: content,
-        date: new Date(),
+        date: date,
         authorId: 18,
       },
     });
